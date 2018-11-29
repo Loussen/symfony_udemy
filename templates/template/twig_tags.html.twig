@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ countries|join(',') }}<hr />
+    {% for country in countries %}
+        {{ country }}
+    {% endfor %}
+    <hr />
+    {{ string|md5 }}
+{% endblock %}
