@@ -46,6 +46,11 @@ class Products
      */
     private $customPrice;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categories", inversedBy="products")
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,7 +116,7 @@ class Products
      * @param mixed $performance
      * @return $this
      */
-    public function setPerformance(?int $performance): int
+    public function setPerformance(?int $performance): self
     {
         $this->performance = $performance;
 
@@ -126,6 +131,18 @@ class Products
     public function setCustomPrice(?bool $customPrice): self
     {
         $this->customPrice = $customPrice;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categories
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categories $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

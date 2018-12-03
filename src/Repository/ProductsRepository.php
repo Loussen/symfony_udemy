@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Categories;
 use App\Entity\Products;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -44,7 +45,7 @@ class ProductsRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
-        ;
+        ;getGreateThan
     }
     */
 
@@ -54,6 +55,15 @@ class ProductsRepository extends ServiceEntityRepository
             ->andWhere('u.price > :price')
             ->setParameter('price',$price)
             ->orderBy('u.price','ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getByCategory(Categories $categories)
+    {
+        return $this->createQueryBuilder("p")
+            ->andWhere("p.category = :category")
+            ->setParameter("category",$categories)
             ->getQuery()
             ->getResult();
     }
