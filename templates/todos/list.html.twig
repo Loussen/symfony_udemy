@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for todo in todos %}
+    {{ todo.name }} <hr />
+    {% endfor %}
+
+    <a href="{{ path('new_todo') }}">Create new</a>
+{% endblock %}
