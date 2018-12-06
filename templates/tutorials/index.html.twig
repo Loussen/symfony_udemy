@@ -3,6 +3,7 @@
 {% block body %}
     {% for tutorial in tutorials %}
     {{ tutorial.name }}
+    {{ dump(tutorial.name) }}
     <form action="{{ url('tutorial_remove', {id: tutorial.id}) }}" method="post">
         <input type="hidden" name="token" value="{{ csrf_token('tutorial_remove') }}">
         <button type="submit">Delete</button>

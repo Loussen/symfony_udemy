@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ message|trans }}<br />
+    {{ 'Hello %user%'|trans({"%user%":"Ejder"}) }}<br />
+    {{ message3 }}<br />
+    {{ '{0} nothing | ]1,29] %count% count | [30,Inf[ none limit'|transchoice(25,{'%count%': 25}) }}
+{% endblock %}

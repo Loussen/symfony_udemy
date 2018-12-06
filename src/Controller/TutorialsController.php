@@ -10,11 +10,15 @@ namespace App\Controller;
 
 use App\Entity\Tutorials;
 use App\Form\TutorialsType;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class TutorialsController extends Controller
 {
@@ -58,12 +62,25 @@ class TutorialsController extends Controller
     /**
      * @Route("/tutorial_listing")
      * @return Response
+     * @Security("has_role('ROLE_USER')")
      */
-    public function listing()
+    public function listing(LoggerInterface $logger, AuthorizationCheckerInterface $authorizationChecker)
     {
+//        $this->denyAccessUnlessGranted('ROLE_USER',null,'Forbidden access!');
+
+//        if(false===$authorizationChecker->isGranted('ROLE_USER'))
+//        {
+//            throw new AccessDeniedException("Forbidden access throw!");
+//        }
+
+        $logger->error("Any error!");
+        $logger->info('Success data!');
         $getRepo = $this->getDoctrine()->getRepository(Tutorials::class);
 
         $tutorials = $getRepo->findAll();
+
+//        $name = "Fuad";
+//        dump($tutorials);
 
         return $this->render('tutorials/index.html.twig',[
             "tutorials" => $tutorials
